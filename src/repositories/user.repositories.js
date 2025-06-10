@@ -18,7 +18,18 @@ function createUsersRepository(NewUser) {
             INSERT INTO users (username, email, password, avatar)
             VALUES(?, ?, ?, ?)
             `,
-            [username, email, password, avatar]
+            [username, email, password, avatar],
+            (err) => {
+                if (err) {
+                    rej(err)
+                } else {
+                    res({message: 'User created'})
+                }
+            }
         )
     })
+}
+
+export default {
+    createUsersRepository
 }
