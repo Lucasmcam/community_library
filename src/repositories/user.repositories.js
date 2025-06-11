@@ -2,7 +2,7 @@ import db from '../configs/database.js';
 
 db.run(`
     CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOCRIMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
@@ -23,7 +23,7 @@ function createUsersRepository(NewUser) {
                 if (err) {
                     rej(err)
                 } else {
-                    res({message: 'User created'})
+                    res({id: this.lastID, ...NewUser})
                 }
             }
         )
