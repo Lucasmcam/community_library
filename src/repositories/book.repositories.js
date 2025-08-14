@@ -90,10 +90,26 @@ function deleteBookRepository(bookId) {
     });
 };
 
+function searchBookRepository(search) {
+    return new Promise((resolve, reject) => {
+        db.all(`
+            SELECT * FROM books WHERE title LIKE = ? OR author LIKE = ?
+            `, [`%${search}%`, `%${search}%`], 
+        (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            } 
+        })
+    })
+}
+
 export default {
     createBookRepository,
     findAllBooksRepository,
     findBookByIdRepository,
     updateBookRepository,
-    deleteBookRepository
+    deleteBookRepository,
+    searchBookRepository
 }
